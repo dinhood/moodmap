@@ -1,16 +1,124 @@
-# React + Vite
+# MoodMap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MoodMap é uma aplicação front-end desenvolvida em React que permite ao setor de Recursos Humanos acompanhar o registro do estado emocional dos colaboradores ao longo dos dias, por meio de um mapa visual interativo.
 
-Currently, two official plugins are available:
+O projeto possui uma estética minimalista inspirada na série de ficção científica "Ruptura", com interfaces corporativas retrô (anos 80), utilizando elementos visuais que simulam sistemas computacionais antigos e mensagens institucionais.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto foi desenvolvido como um MVP (Minimum Viable Product) para fins acadêmicos, com foco nos conceitos de componentização, roteamento, usabilidade e boas práticas de organização de código.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
+- Registro do humor diário com anotação opcional
+- Visualização dos registros em um mapa de humor
+- Detalhamento do humor ao selecionar uma data específica
+- Exclusão de registros individuais de humor
+- Envio de relatório de humor por e-mail
+- Simulação de carregamento de dados a partir de um arquivo JSON local
+- Tela inicial com animação de inicialização do sistema
+- Feedback visual para estados de carregamento, sucesso e erro
+- Layout responsivo para desktop, tablet e dispositivos móveis
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Tecnologias Utilizadas
+
+- React
+- Vite
+- React Router DOM
+- JavaScript (ES6+)
+- CSS
+- LocalStorage (simulação de persistência de dados)
+- JSON local (simulação de servidor)
+
+---
+
+## Estrutura do Projeto
+
+src/
+├── components/ # Componentes reutilizáveis
+│ ├── Header.jsx
+│ ├── BootScreen.jsx
+│ ├── MoodGrid.jsx
+│ ├── MoodCell.jsx
+│ ├── MoodSelector.jsx
+│ ├── Tooltip.jsx
+│ ├── FeedbackAlert.jsx
+│ └── ConfidentialBanner.jsx
+│
+├── pages/ # Páginas da aplicação
+│ ├── HomePage.jsx
+│ ├── RegisterMoodPage.jsx
+│ ├── MoodMapPage.jsx
+│ └── NotFoundPage.jsx
+│
+├── data/
+│ └── moods.json # Dados simulados do servidor
+│
+├── styles/
+│ └── global.css # Estilos globais
+│
+├── App.jsx
+└── main.jsx
+
+
+---
+
+## Navegação da Aplicação
+
+- `/` — Página inicial
+- `/registrar` — Registro de humor
+- `/mapa` — Mapa de humor
+- `/mapa/:date` — Detalhes do humor por data
+- `*` — Página de erro (rota inexistente)
+
+---
+
+## Simulação de Servidor
+
+As requisições a um servidor foram simuladas por meio da leitura de um arquivo JSON local (moods.json).  
+Os registros criados pelo usuário são armazenados no LocalStorage, simulando a persistência de dados no cliente.
+
+---
+
+## Hooks Utilizados
+
+- useState — controle de estados da aplicação
+- useEffect — carregamento de dados simulados
+- useNavigate — redirecionamento entre páginas
+- useParams — leitura de parâmetros da URL
+- useLocation — identificação da rota ativa
+
+---
+
+## Instalação e Execução
+
+### Pré-requisitos
+
+- Node.js (versão LTS recomendada)
+- npm ou yarn
+
+### Passos para execução
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/moodmap.git
+Acesse a pasta do projeto:
+
+cd moodmap
+
+
+Instale as dependências:
+
+npm install
+
+
+Execute a aplicação:
+
+npm run dev
+
+
+Acesse no navegador:
+
+http://localhost:5173
