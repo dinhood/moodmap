@@ -1,0 +1,533 @@
+/* ------------------------ */
+/* BASE / ANOS 80 CORPORATE */
+/* ------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Courier New", ui-monospace, Menlo, Monaco, Consolas, monospace;
+  background-color: #f5f5f0; /* branco sujo, tipo escritório antigão */
+  color: #111827;
+}
+
+/* leve textura de papel/computador antigo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.02) 1px,
+      transparent 1px
+    );
+  background-size: 100% 18px, 18px 100%;
+  z-index: -1;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.page {
+  background: #fdfdf8;
+  border-radius: 0;
+  border: 2px solid #111827;
+  padding: 1.5rem 1.25rem 1.75rem;
+  box-shadow: 6px 6px 0 #111827;
+}
+
+.page h1,
+.page h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+}
+
+/* ------------------------ */
+/* HEADER / NAVBAR          */
+/* ------------------------ */
+
+.navbar {
+  background: #fdfdf8;
+  color: #111827;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #111827;
+  box-shadow: 0 4px 0 #111827;
+}
+
+.navbar-logo {
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.navbar-links a {
+  color: #111827;
+  text-decoration: none;
+  margin-left: 0.75rem;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+}
+
+.navbar-links a:hover {
+  border-color: #111827;
+  background: #e5e7eb;
+}
+
+.navbar-links a.active {
+  background: #111827;
+  color: #f5f5f0;
+  border-color: #111827;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.navbar-subtitle {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.8;
+}
+
+
+/* ------------------------ */
+/* BOTÕES                   */
+/* ------------------------ */
+
+.btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 0;
+  border: 2px solid #111827;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #fdfdf8;
+  color: #111827;
+  box-shadow: 3px 3px 0 #111827;
+  transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s;
+}
+
+.btn.primary {
+  background: #f5f5f0;
+}
+
+.btn.secondary {
+  background: #fdfdf8;
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #111827;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 3px 3px 0 #111827;
+}
+
+/* ------------------------ */
+/* HOME                     */
+/* ------------------------ */
+
+.home-page p {
+  font-size: 0.86rem;
+  max-width: 520px;
+}
+
+.home-actions {
+  margin-top: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ------------------------ */
+/* FORM DE REGISTRO         */
+/* ------------------------ */
+
+.register-page label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mood-form textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 0.6rem 0.7rem;
+  resize: vertical;
+  border-radius: 0;
+  border: 2px solid #111827;
+  background: #fdfdf8;
+  color: #111827;
+  font-family: inherit;
+  font-size: 0.82rem;
+}
+
+.mood-form textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px #111827;
+}
+
+/* ------------------------ */
+/* ALERTAS / FEEDBACK       */
+/* ------------------------ */
+
+.alert {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0;
+  margin-bottom: 0.9rem;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #111827;
+  background: #fdfdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.alert-info {
+  border-color: #0f766e;
+  color: #0f766e;
+}
+
+.alert-success {
+  border-color: #166534;
+  color: #166534;
+}
+
+.alert-error {
+  border-color: #991b1b;
+  color: #991b1b;
+}
+
+/* ------------------------ */
+/* MOOD SELECTOR (CREEPY)   */
+/* ------------------------ */
+
+.mood-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.mood-option {
+  flex: 1 0 130px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0;
+  border: 2px solid #111827;
+  background: #fdfdf8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: background 0.1s, transform 0.05s, box-shadow 0.05s;
+  font-size: 0.8rem;
+}
+
+.mood-option .emoji {
+  font-size: 1.25rem;
+}
+
+.mood-option .label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.mood-option:hover {
+  background: #e5e7eb;
+  transform: translate(-1px, -1px);
+}
+
+.mood-option.selected {
+  background: #111827;
+  color: #f5f5f0;
+}
+
+/* ------------------------ */
+/* MOOD MAP (GRID)          */
+/* ------------------------ */
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  margin: 1.2rem 0 0.5rem;
+}
+
+.mood-cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0;
+  border: 1px solid #111827;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.08s ease;
+}
+
+.mood-cell:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #111827;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.day-details {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0;
+  background: #f5f5f0;
+  border: 2px solid #111827;
+  font-size: 0.8rem;
+}
+
+.map-focus {
+  font-size: 0.78rem;
+  margin-top: 0.3rem;
+}
+
+/* ------------------------ */
+/* NOT FOUND                */
+/* ------------------------ */
+
+.notfound-page h2 {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.notfound-page p {
+  font-size: 0.8rem;
+}
+
+.confidential-banner {
+  border: 2px solid #111827;
+  border-bottom: none;
+  padding: 0.4rem 0.75rem;
+  background: #f5f5f0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.confidential-label {
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border: 2px solid #111827;
+  background: #111827;
+  color: #f5f5f0;
+}
+
+.confidential-text {
+  opacity: 0.9;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+  cursor: help;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: 120%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #111827;
+  color: #f5f5f0;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  border: 1px solid #111827;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+  z-index: 5;
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 110%;
+  transform: translateX(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: #111827 transparent transparent transparent;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.tooltip:hover::after,
+.tooltip:hover::before {
+  opacity: 1;
+}
+
+.terminal-loader {
+  display: flex;
+  align-items: center;
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  margin: 1rem 0;
+}
+
+.terminal-text {
+  color: #111827;
+}
+
+.terminal-cursor {
+  margin-left: 4px;
+  animation: blink 0.7s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: "Courier New", monospace;
+}
+
+.boot-window {
+  border: 2px solid #22c55e;
+  padding: 1.25rem 1.5rem;
+  max-width: 640px;
+  width: 90%;
+  background: #020617;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+}
+
+.boot-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(34, 197, 94, 0.4);
+  padding-bottom: 0.4rem;
+}
+
+.boot-body p {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+}
+
+.boot-ok {
+  color: #4ade80;
+}
+
+.boot-hint {
+  margin-top: 0.75rem;
+  opacity: 0.8;
+}
+
+.boot-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+}
+
+/* ------------------------ */
+/* RESPONSIVO               */
+/* ------------------------ */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.6rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .navbar-links a {
+    margin-left: 0;
+    margin-right: 0.4rem;
+  }
+
+  .app-main {
+    padding: 1.3rem 1rem 2.2rem;
+  }
+
+  .page {
+    padding: 1.1rem 0.9rem 1.4rem;
+    box-shadow: 4px 4px 0 #111827;
+  }
+
+  .mood-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
