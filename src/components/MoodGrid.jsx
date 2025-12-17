@@ -1,12 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import MoodCell from "./MoodCell.jsx";
-
-function toLocalYMD(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
+import { toLocalYMD } from "../utils/date.js";
 
 function getLastNDates(n) {
   const dates = [];
@@ -14,12 +8,9 @@ function getLastNDates(n) {
 
   for (let i = n - 1; i >= 0; i--) {
     const d = new Date(today);
-
-    // evita "pular dia" por causa de fuso/DST
     d.setHours(12, 0, 0, 0);
-
     d.setDate(d.getDate() - i);
-    dates.push(toLocalYMD(d)); // "YYYY-MM-DD" (local)
+    dates.push(toLocalYMD(d));
   }
 
   return dates;
@@ -27,18 +18,12 @@ function getLastNDates(n) {
 
 export default function MoodGrid({ moods }) {
   const navigate = useNavigate();
-
   const dates = getLastNDates(30);
 
-  // transforma array em objeto { "2025-11-01": { ... } }
   const moodsByDate = moods.reduce((acc, m) => {
     acc[m.date] = m;
     return acc;
   }, {});
-
-  function handleClickDay(date) {
-    navigate(`/mapa/${date}`);
-  }
 
   return (
     <div className="mood-grid">
@@ -50,7 +35,7 @@ export default function MoodGrid({ moods }) {
             key={date}
             date={date}
             mood={entry?.mood}
-            onClick={() => handleClickDay(date)}
+            onClick={() => navigate(`/mapa/${date}`)}
           />
         );
       })}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MoodSelector from "../components/MoodSelector.jsx";
 import FeedbackAlert from "../components/FeedbackAlert.jsx";
+import { toLocalYMD } from "../utils/date.js";
 
 function loadMoods() {
   const saved = localStorage.getItem("moodmap:moods");
@@ -12,19 +13,32 @@ function saveMoods(moods) {
   localStorage.setItem("moodmap:moods", JSON.stringify(moods));
 }
 
+function loadDeletedDates() {
+  const saved = localStorage.getItem("moodmap:deletedDates");
+  return saved ? JSON.parse(saved) : [];
+}
+
+function saveDeletedDates(dates) {
+  localStorage.setItem("moodmap:deletedDates", JSON.stringify(dates));
+}
+
 export default function RegisterMoodPage() {
-  const [mood, setMood] = useState("");        // humor escolhido
-  const [note, setNote] = useState("");        // anotação opcional
-  const [feedback, setFeedback] = useState(""); // mensagem na tela
+  const [mood, setMood] = useState("");
+  const [note, setNote] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const today = toLocalYMD(); // data local correta
 
+    // 🔓 se o dia estava apagado, desbloqueia automaticamente
+    const deleted = loadDeletedDates();
+    if (deleted.includes(today)) {
+      saveDeletedDates(deleted.filter((d) => d !== today));
+    }
 
     const moods = loadMoods();
 
@@ -34,29 +48,29 @@ export default function RegisterMoodPage() {
       note,
     };
 
-    // remove registro anterior do mesmo dia, se existir
     const withoutToday = moods.filter((m) => m.date !== today);
-    const updated = [...withoutToday, newEntry];
+    const updated = [...withoutToday, newEntry].sort((a, b) =>
+      a.date.localeCompare(b.date)
+    );
 
-    // salva os dados
     saveMoods(updated);
 
-    // toca som de confirmação
+    // 🔊 SOM DE SUCESSO
     try {
-      const audio = new Audio("/sounds/confirm-beep.mp3");
-      audio.volume = 0.5;
-      audio.play().catch(() => {});
-    } catch (e) {
-      console.warn("Erro ao tocar som de confirmação:", e);
+      const audio = new Audio("/sounds/success.mp3");
+      audio.volume = 0.4;
+      audio.currentTime = 0;
+      audio.play();
+    } catch (err) {
+      // se o navegador bloquear, ignora
     }
 
-    setFeedback("Humor de hoje registrado com sucesso! ✅");
+    setFeedback("Humor de hoje registrado com sucesso.");
     setNote("");
 
-    // depois de 1 segundo, manda para o mapa
     setTimeout(() => {
       navigate("/mapa");
-    }, 1000);
+    }, 700);
   }
 
   return (
@@ -69,7 +83,9 @@ export default function RegisterMoodPage() {
         <label>Como você está se sentindo hoje?</label>
         <MoodSelector value={mood} onChange={setMood} />
 
-        <label htmlFor="note">Quer anotar algo sobre o dia? (opcional)</label>
+        <label htmlFor="note">
+          Quer anotar algo sobre o dia? (opcional)
+        </label>
         <textarea
           id="note"
           value={note}
