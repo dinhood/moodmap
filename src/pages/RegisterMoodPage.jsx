@@ -22,7 +22,9 @@ export default function RegisterMoodPage() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
 
     const moods = loadMoods();
 
@@ -39,7 +41,7 @@ export default function RegisterMoodPage() {
     // salva os dados
     saveMoods(updated);
 
-    // 🔊 toca som de confirmação
+    // toca som de confirmação
     try {
       const audio = new Audio("/sounds/confirm-beep.mp3");
       audio.volume = 0.5;

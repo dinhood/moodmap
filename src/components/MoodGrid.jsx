@@ -1,14 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import MoodCell from "./MoodCell.jsx";
 
+function toLocalYMD(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
 function getLastNDates(n) {
   const dates = [];
   const today = new Date();
 
   for (let i = n - 1; i >= 0; i--) {
     const d = new Date(today);
+
+    // evita "pular dia" por causa de fuso/DST
+    d.setHours(12, 0, 0, 0);
+
     d.setDate(d.getDate() - i);
-    dates.push(d.toISOString().slice(0, 10)); // "YYYY-MM-DD"
+    dates.push(toLocalYMD(d)); // "YYYY-MM-DD" (local)
   }
 
   return dates;
@@ -26,7 +37,6 @@ export default function MoodGrid({ moods }) {
   }, {});
 
   function handleClickDay(date) {
-    // navega para /mapa/:date usando hook de navegação
     navigate(`/mapa/${date}`);
   }
 
